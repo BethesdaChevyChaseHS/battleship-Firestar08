@@ -73,23 +73,34 @@ public class Grid {
             if (s.getCol() + s.getLength() >= this.numCols()){
                 return false;
             }
-            for (int col = s.getCol(); col < s.getCol() + s.getLength(); col++){
-                if (g[s.getRow()][col].hasShip() == true){
-                    return false;
-                } 
+            else {
+                for (int col = s.getCol(); col < s.getCol() + s.getLength(); col++){
+                    if (g[s.getRow()][col].hasShip() == true){
+                        return false;
+                    } 
+                }
             }
+            for (int col = s.getCol(); col < (s.getCol() + s.getLength()); col++){
+                this.setShip(s.getRow(), col, true);
+            }
+            return true;
         }
         else {
             if (s.getRow() + s.getLength() >= this.numRows()){
                 return false;
             }
-            for (int row = s.getRow(); row < s.getRow() + s.getLength(); row++){
-                if (g[row][s.getCol()].hasShip() == true){
-                    return false;
+            else {
+                for (int row = s.getRow(); row < s.getRow() + s.getLength(); row++){
+                    if (g[row][s.getCol()].hasShip() == true){
+                        return false;
+                    }
                 }
             }
+            for (int row = s.getCol(); row < (s.getCol() + s.getLength()); row++){
+                this.setShip(row, s.getCol(), true);
+            }
+            return true;
         }
-        return true;
     }
 
     public boolean allShipsSank(){

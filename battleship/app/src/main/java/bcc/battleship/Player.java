@@ -1,23 +1,23 @@
 package bcc.battleship;
 import bcc.battleship.Constants;
 
-public class Player {
-    private Ship[] ships;
+public class Player{
+    private Grid myGrid;
     private Grid opponentGrid;
-    private Grid playerGrid;
+    private Ship[] ships;
 
     // Constructor: Initialize the grids and the ships.
-    public Player() {
-        //for (int i; i < (Constants.SHIP_LENGTHS).Length; i++){
-        //    ships[i] = Ship(Constants.SHIP_LENGTHS[i]);
-        //}
-        ships[0] = new Ship(2);
-        ships[1] = new Ship(3);
-        ships[2] = new Ship(3);
-        ships[3] = new Ship(4);
-        ships[4] = new Ship(5);
+    public Player(){
+        myGrid = new Grid();
         opponentGrid = new Grid();
-        playerGrid = new Grid();
+        for (int index = 0; index < Constants.SHIP_LENGTHS.length; index++){
+            ships[index] = new Ship(Constants.SHIP_LENGTHS[index]);
+        }
+        //ships[0] = new Ship(2);
+        //ships[1] = new Ship(3);
+        //ships[2] = new Ship(3);
+        //ships[3] = new Ship(4);
+        //ships[4] = new Ship(5);
     }
     
     /**
@@ -26,10 +26,10 @@ public class Player {
      *
      */
     
-    public boolean chooseShipLocation(int index, int row, int col, int direction) {
+    public boolean chooseShipLocation(int index, int row, int col, int direction){
         ships[index].setDirection(direction);
         ships[index].setLocation(row, col);
-        return playerGrid.addShip(ships[index]);
+        return myGrid.addShip(ships[index]);
     }
    
     /**
@@ -38,8 +38,8 @@ public class Player {
      * it marks a hit and returns true; otherwise, it marks a miss and returns false.
      *
      */
-    public boolean recordOpponentGuess(int row, int col) {
-        if (playerGrid.hasShip(row, col)){
+    public boolean recordOpponentGuess(int row, int col){
+        if (myGrid.hasShip(row, col)){
             opponentGrid.markHit(row, col);
             return true;
         }
@@ -50,11 +50,11 @@ public class Player {
     }
     
     
-    public Grid getMyGrid() {
-        return playerGrid;
+    public Grid getMyGrid(){
+        return myGrid;
     }
     
-    public Grid getOpponentGrid() {
+    public Grid getOpponentGrid(){
         return opponentGrid;
     }
 }
